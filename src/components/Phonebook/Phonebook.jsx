@@ -23,7 +23,7 @@ export class Phonebook extends Component {
       this.setState({ contacts: JSON.parse(localContacts) });
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(_, prevState) {
     if (this.state.contacts !== prevState.contacts) 
       localStorage.setItem('contacts', JSON.stringify(this.state.contacts));    
   }
