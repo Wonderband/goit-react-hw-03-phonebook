@@ -15,7 +15,18 @@ export class Phonebook extends Component {
         {id: 'id-4', name: 'Annie Copeland', number: '227-91-26'},
     ],
     filter: '',   
-    }  
+  }  
+  
+  componentDidMount() { 
+    const localContacts = localStorage.getItem('contacts');
+    if (localContacts)
+      this.setState({ contacts: JSON.parse(localContacts) });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.contacts !== prevState.contacts) 
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));    
+  }
 
   handleSubmit = (e) => { 
     e.preventDefault();    
@@ -30,7 +41,7 @@ export class Phonebook extends Component {
       id: nanoid()
     };    
     this.setState(prevState => { return { contacts: [...prevState.contacts, newContact] } });
-    e.currentTarget.reset();
+    e.currentTarget.reset();    
   }
 
   filterHandle = (e) => {     
